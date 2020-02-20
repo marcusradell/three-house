@@ -25,11 +25,13 @@ const createRoofSide: CreateRoofSide = (body, topHeight, mirrorFactor) => {
 
   const mat = new MeshLambertMaterial({ color: 0xfd59d7 });
   const mesh = new Mesh(geo, mat);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
 
   geo.translate(0, 0, (geo.parameters.depth / 2) * mirrorFactor);
   geo.rotateX(
-    (0.75 + mirrorFactor * 0.75) * Math.PI +
-      Math.acos(body.geo.parameters.depth / 2 / geo.parameters.depth)
+    -Math.acos(body.geo.parameters.depth / 2 / geo.parameters.depth) *
+      mirrorFactor
   );
   geo.translate(0, 0, (body.geo.parameters.depth / 2) * -mirrorFactor);
   geo.translate(0, body.geo.parameters.height + thickness / 2, 0);

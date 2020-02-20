@@ -2,8 +2,9 @@ import {
   Scene,
   PerspectiveCamera,
   WebGLRenderer,
-  PCFSoftShadowMap,
-  AmbientLight
+  PCFSoftShadowMap as ShadowMap,
+  AmbientLight,
+  Color
 } from "three";
 import { createBody } from "./body";
 import { createRoof } from "./roof";
@@ -12,7 +13,9 @@ import { createGround } from "./ground";
 import { createLightbulb } from "./lightbulb";
 
 const scene = new Scene();
-scene.add(new AmbientLight(0x111122));
+scene.add(new AmbientLight(0x111122, 5));
+scene.background = new Color(0xf0f0f0);
+
 const camera = new PerspectiveCamera(
   45,
   window.innerWidth / window.innerHeight,
@@ -20,13 +23,13 @@ const camera = new PerspectiveCamera(
   1000
 );
 
-camera.position.z = 300;
-camera.position.y = 100;
-camera.lookAt(0, 0, 0);
+camera.position.set(0, 300, 300);
+camera.lookAt(scene.position);
 
-const renderer = new WebGLRenderer();
+const renderer = new WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = PCFSoftShadowMap;
+renderer.shadowMap.type = ShadowMap;
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -42,7 +45,7 @@ ground.mesh.add(lightbulb.mesh);
 const body = createBody();
 ground.mesh.add(body.mesh);
 
-const roof = createRoof(body, 50);
+const roof = createRoof(body, 30);
 
 body.mesh.add(roof[0].mesh);
 body.mesh.add(roof[1].mesh);
@@ -54,7 +57,15 @@ var animate = function() {
 
   renderer.render(scene, camera);
 
-  ground.mesh.rotateY(0.01);
+  ground.mesh.rotateY(0.005);
 };
 
 animate();
+
+const onWindowResize = () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+};
+
+window.addEventListener("resize", onWindowResize, false);

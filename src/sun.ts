@@ -1,11 +1,12 @@
-import { SpotLight } from "three";
+import { DirectionalLight } from "three";
 
-type CreateSun = () => SpotLight;
+type CreateSun = () => DirectionalLight;
 
-export const createSun = () => {
-  const sun = new SpotLight(0xffff00, 0.5);
-  sun.castShadow = true;
-  sun.position.set(-75, 500, -75);
-  sun.lookAt(0, 0, 0);
-  return sun;
+export const createSun: CreateSun = () => {
+  const light = new DirectionalLight(0xffff00, 1.5);
+  light.castShadow = true;
+  light.position.set(75, 200, 175);
+  light.lookAt(0, 0, 0);
+  light.shadow.bias = -0.005;
+  return light;
 };

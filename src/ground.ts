@@ -8,9 +8,9 @@ export type Ground = {
 type CreateGround = () => Ground;
 
 export const createGround: CreateGround = () => {
-  const geo = new CircleGeometry(125, 20);
+  const geo = new CircleGeometry(200, 100);
   geo.rotateX(-Math.PI / 2);
-  const mat = new MeshLambertMaterial({ color: 0x00ff00 });
+  const mat = new MeshLambertMaterial({ color: 0x33bb66 });
   const mesh = new Mesh(geo, mat);
   mesh.receiveShadow = true;
   return { geo, mesh };
