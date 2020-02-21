@@ -14,10 +14,10 @@ type CreateLight = (pos: Vector3) => Entity;
 
 export const createLight: CreateLight = pos => {
   const light = new PointLight(0xffff88, intensity);
-  light.castShadow = true;
 
-  light.shadowMapWidth = 3072; // default is 512
-  light.shadowMapHeight = 3072; // default is 512
+  light.castShadow = true;
+  light.shadow.mapSize.width = 2048;
+  light.shadow.mapSize.height = 2048;
   light.shadow.radius = 8;
 
   light.shadow.camera.near = 1;
