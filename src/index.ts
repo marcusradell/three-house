@@ -23,18 +23,38 @@ const camera = new PerspectiveCamera(
   1000
 );
 
-camera.position.set(0, 300, 300);
-camera.lookAt(scene.position);
+let zoom = true;
+zoom = false;
 
-const renderer = new WebGLRenderer({ antialias: true });
+if (zoom) {
+  camera.position.set(-100, 80, 200);
+  camera.lookAt(
+    scene.position.x - 60,
+    scene.position.y - 40,
+    scene.position.z + 60
+  );
+} else {
+  camera.position.set(0, 300, 300);
+  camera.lookAt(scene.position);
+}
+
+const renderer = new WebGLRenderer({
+  antialias: true,
+  alpha: true
+});
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = ShadowMap;
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const sun = createSun();
-scene.add(sun);
+let showSun = true;
+showSun = false;
+
+if (showSun) {
+  const sun = createSun();
+  scene.add(sun);
+}
 
 const ground = createGround();
 scene.add(ground.mesh);

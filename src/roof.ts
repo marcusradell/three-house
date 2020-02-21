@@ -21,7 +21,14 @@ const createRoofSide: CreateRoofSide = (body, topHeight, mirrorFactor) => {
   const depthCosine = body.geo.parameters.depth / 2;
   const depth = Math.sqrt(topHeight ** 2 + depthCosine ** 2);
 
-  const geo = new BoxGeometry(width, thickness, depth);
+  const geo = new BoxGeometry(
+    width,
+    thickness,
+    depth,
+    width * 2,
+    thickness * 2,
+    depth * 2
+  );
 
   const mat = new MeshLambertMaterial({ color: 0xfd59d7 });
   const mesh = new Mesh(geo, mat);

@@ -5,6 +5,11 @@ const intensity = 1;
 export const createLightbulb = () => {
   const light = new PointLight(0xffffff, intensity);
   light.castShadow = true;
+
+  light.shadowMapWidth = 3072; // default is 512
+  light.shadowMapHeight = 3072; // default is 512
+  light.shadow.radius = 8;
+
   light.shadow.camera.near = 1;
   light.shadow.camera.far = 600;
   // What's this?
