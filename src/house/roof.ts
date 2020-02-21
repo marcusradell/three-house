@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh, MeshLambertMaterial } from "three";
+import { BoxGeometry, Mesh, MeshPhongMaterial as Material } from "three";
 import { Body } from "./body";
 
 export type RoofSide = {
@@ -30,7 +30,7 @@ const createRoofSide: CreateRoofSide = (body, topHeight, mirrorFactor) => {
     depth * 2
   );
 
-  const mat = new MeshLambertMaterial({ color: 0xfd59d7 });
+  const mat = new Material({ color: 0xfd59d7 });
   const mesh = new Mesh(geo, mat);
   mesh.castShadow = true;
   mesh.receiveShadow = true;

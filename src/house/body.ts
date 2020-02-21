@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh, MeshLambertMaterial as Material } from "three";
+import { BoxGeometry, Mesh, MeshPhongMaterial as Material } from "three";
 
 export type Body = {
   geo: BoxGeometry;

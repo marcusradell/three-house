@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "js": "^0.1.0",
-    "parcel-bundler": "^1.12.4",
     "three": "^0.113.2",
     "typescript": "^3.7.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^13.7.4",
+    "parcel-bundler": "^1.12.4"
+  },
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html"
