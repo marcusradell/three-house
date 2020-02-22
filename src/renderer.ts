@@ -17,6 +17,7 @@ export const createRenderer: CreateRenderer = (
     antialias: true,
     alpha: true
   });
+  renderer.physicallyCorrectLights = true;
   renderer.setPixelRatio(pixelRatio);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = ShadowMap;
