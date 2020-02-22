@@ -5,6 +5,7 @@ import { createLight } from "./light";
 import { createCamera } from "./camera";
 import { createRenderer } from "./renderer";
 import { createHouse } from "./house";
+import { createControls } from "./controls";
 
 const init = () => {
   if (process.env.QUALITY === undefined) {
@@ -13,34 +14,35 @@ const init = () => {
 
   const quality = parseFloat(process.env.QUALITY);
 
+  if (isNaN(quality)) {
+    throw new Error(
+      "Got NaN from process.env.QUALITY which must be a real number."
+    );
+  }
+
+  const container = document.getElementById("three-house");
+
+  if (container === null) {
+    throw new Error('Missing element with id "three-house"');
+  }
+
   const renderer = createRenderer(
+    container,
     window.innerWidth,
     window.innerHeight,
     window.devicePixelRatio
   );
 
-  document.body.appendChild(renderer.domElement);
-
   const camera = createCamera(new Vector3(0, 300, 300), new Vector3(0, 0, 0));
-
+  createControls(camera, container);
   const scene = createScene();
-
-  const ground = createGround(quality);
-  scene.add(ground.mesh);
+  const ground = createGround(quality, scene);
 
   const lightbulb = createLight(new Vector3(-25, 150, 125));
   ground.mesh.add(lightbulb.mesh);
 
   const house = createHouse();
   ground.mesh.add(house.mesh);
-
-  const animate = () => {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-    ground.mesh.rotateY(0.005);
-  };
-
-  animate();
 
   const onWindowResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -49,6 +51,22 @@ const init = () => {
   };
 
   window.addEventListener("resize", onWindowResize, false);
+
+  const update = () => {
+    ground.update();
+  };
+
+  const render = () => {
+    renderer.render(scene, camera);
+  };
+
+  const loop = () => {
+    requestAnimationFrame(loop);
+    update();
+    render();
+  };
+
+  loop();
 };
 
 init();
