@@ -7,7 +7,6 @@ export type RoofSide = {
 };
 
 const thickness = 1;
-const extraWidth = 10;
 
 type CreateRoofSide = (
   body: Body,
@@ -16,7 +15,7 @@ type CreateRoofSide = (
 ) => RoofSide;
 
 const createRoofSide: CreateRoofSide = (body, topHeight, mirrorFactor) => {
-  const width = body.geo.parameters.width + extraWidth;
+  const width = body.geo.parameters.width;
 
   const depthCosine = body.geo.parameters.depth / 2;
   const depth = Math.sqrt(topHeight ** 2 + depthCosine ** 2);
@@ -30,7 +29,7 @@ const createRoofSide: CreateRoofSide = (body, topHeight, mirrorFactor) => {
     depth * 2
   );
 
-  const mat = new Material({ color: 0xfd59d7 });
+  const mat = new Material({ color: 0xb84221 });
   const mesh = new Mesh(geo, mat);
   mesh.castShadow = true;
   mesh.receiveShadow = true;

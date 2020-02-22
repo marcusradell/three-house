@@ -10,7 +10,7 @@ type CreateBody = () => Body;
 export const createBody: CreateBody = () => {
   const geo = new BoxGeometry(150, 50, 100);
   geo.translate(0, geo.parameters.height / 2, 0);
-  const mat = new Material({ color: 0xffffff });
+  const mat = new Material({ color: 0x801818 });
   const mesh = new Mesh(geo, mat);
   mesh.castShadow = true;
   mesh.receiveShadow = true;
